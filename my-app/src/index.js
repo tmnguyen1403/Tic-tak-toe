@@ -15,20 +15,21 @@ function create2D(nb_row, nb_col) {
 
 class Board extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			board: create2D(props.length, props.length),
 			isXNext: true
-		}
+		};
 	}
 
 	handleButton(rowIndex, colIndex) {
 		let newBoard = this.state.board.slice();
-		newBoard[rowIndex][colIndex] = this.state.isXNext ? 'X' : 'O';
+		newBoard[rowIndex][colIndex] = this.props.player ? 'X' : 'O';
+		this.props.onPlayer();
 		this.setState({
 			board: newBoard,
 			isXNext: !this.state.isXNext
-		})
+		});
 	}
 
 	renderRow(length) {
@@ -58,14 +59,35 @@ class Board extends React.Component {
 }
 
 class Game extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			status: 'Next player is: X',
+			isXNext: true
+		}
+	}
+
+	handlePlayer() {
+		this.setState({
+			isXNext: !this.state.isXNext
+		});
+	}
+
 	render() {
 		const length = 3;
-
+		const status = 'Next player is: ' + (this.state.isXNext ? 'X' : 'O');
+		console.log(this.state.isXNext);
 		return (
-			<Board length={length}/>
-		)
+			<>
+				<div className="player-status">
+					{status}
+				</div>
+				<Board length={length} player={this.state.isXNext} onPlayer={() => this.handlePlayer()} />
+			</>
+		);
 	}
 }
+
 ReactDom.render(
 	<Game />,
 	document.getElementById('root')
