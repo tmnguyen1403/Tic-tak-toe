@@ -1,0 +1,35 @@
+.board-row:after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.btn {
+		background: #fff;
+	  border: 0.5px solid #999;
+	  float: left;
+	  font-size: 24px;
+	  font-weight: bold;
+	  line-height: 34px;
+	  height: 34px;
+		width: 34px;
+	  padding: 0;
+	  text-align: center;
+		margin-right: 0px;
+		magin-top: -1px;
+
+}
+
+.btn:focus {
+	outline: none;
+}
+
+.btn-highlight-X {
+	color: blue;
+	background-color: rgb(0,0,255, 0.0);
+}
+
+.btn-highlight-O {
+	color: red;
+	background-color: rgb(255, 0, 0, 0.0);
+}

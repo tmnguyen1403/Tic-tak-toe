@@ -3,8 +3,14 @@ import ReactDom from 'react-dom';
 import './index.css';
 
 function Square(props) {
+	let highlight = 'btn';
+	if (props.value === 'X')
+		highlight += ' btn-highlight-X';
+	else if (props.value === 'O')
+		highlight += ' btn-highlight-O';
+
 	return (
-		<button className='btn' onClick={props.onClick}>{props.value}</button>
+		<button className={highlight} onClick={props.onClick}>{props.value}</button>
 	);
 }
 
@@ -63,7 +69,7 @@ class Board extends React.Component {
 		return false;
 	}
 
-	handleButton(rowIndex, colIndex) {
+	handleClick(rowIndex, colIndex) {
 		if (this.props.winner)
 			return ;
 		let newBoard = this.state.board.slice();
@@ -81,7 +87,7 @@ class Board extends React.Component {
 		const board = this.state.board;
 		const rows = board.map( (row, rowIndex) => {
 			const squares = row.map( (value, colIndex) => {
-				return <Square key={colIndex} value={value} onClick={() => this.handleButton(rowIndex, colIndex)}/>
+				return <Square key={colIndex} value={value} onClick={() => this.handleClick(rowIndex, colIndex)}/>
 			});
 
 			return (
